@@ -1,7 +1,16 @@
-chrome.runtime.onInstalled.addListener(() => { // When the extension is installed...
-    chrome.storage.local.set({ youtubeWatchTime: {} });
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.local.get('youtubeWatchTime', (result) => {
+    if (!result.youtubeWatchTime) {
+      // データが存在しない場合のみ初期化
+      chrome.storage.local.set({ youtubeWatchTime: {} }, () => {
+        console.log('Initialized youtubeWatchTime as empty object.');
+      });
+    } else {
+      console.log('youtubeWatchTime already exists. No initialization needed.');
+    }
   });
-  
+});
+
   function saveWatchTime(watchTime) {    
     //const today = new Date().toISOString().split('T')[0].replaceAll("-", "/"); // Get today's date (YYYY-MM-DD)
     const today = new Date();
