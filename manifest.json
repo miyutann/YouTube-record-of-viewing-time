@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "YouTube Watch Time Tracker",
+    "version": "1.0",
+    "description": "Tracks the amount of time spent watching YouTube each day.",
+    "permissions": [
+      "storage",
+      "activeTab",
+      "tabs"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": ""
+    },
+    "icons": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
+    "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+  }
+  
