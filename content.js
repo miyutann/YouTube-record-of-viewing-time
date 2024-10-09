@@ -29,3 +29,15 @@ setInterval(checkIfWatching, 1000);
 
 // Report watch time when the user leaves the page
 //window.addEventListener("beforeunload", reportWatchTime);
+
+// YouTubeのページが閉じられる直前に視聴時間を送信
+window.addEventListener('beforeunload', function() {
+  clearInterval(timer); // タイマーを停止
+  chrome.runtime.sendMessage({ action: "updateWatchTime", watchTime: watchTime }, function(response) {
+    if (chrome.runtime.lastError) {
+      console.error("Error sending watch time:", chrome.runtime.lastError);
+    } else {
+      console.log("Watch time sent before page unload:", watchTime);
+    }
+  });
+});
